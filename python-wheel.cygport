@@ -1,0 +1,24 @@
+inherit python-wheel
+
+NAME="python-wheel"
+VERSION=0.30.0a0
+RELEASE=1
+CATEGORY="Python"
+SUMMARY="Python package format module"
+DESCRIPTION="A wheel is a ZIP-format archive with a specially formatted filename
+and the .whl extension. It is designed to contain all the files for a PEP 376
+compatible install in a way that is very close to the on-disk format."
+
+ARCH=noarch
+
+python2_wheel_CONTENTS="usr/bin/wheel-${PYTHON2_VERSION} ${python2_wheel_CONTENTS}"
+python3_wheel_CONTENTS="usr/bin/wheel-${PYTHON3_VERSION} ${python3_wheel_CONTENTS}"
+
+src_install() {
+	cd ${B}
+	python_wheel_install
+
+	cp ${D}/usr/bin/wheel{,-${PYTHON2_VERSION}}
+	mv ${D}/usr/bin/wheel{,-${PYTHON3_VERSION}}
+	python2_fix_shebang /usr/bin/wheel-${PYTHON2_VERSION}
+}
