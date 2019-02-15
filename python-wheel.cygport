@@ -1,7 +1,8 @@
+PYTHON_WHEEL_VERSIONS="all"
 inherit python-wheel
 
 NAME="python-wheel"
-VERSION=0.30.0a0
+VERSION=0.32.3
 RELEASE=1
 CATEGORY="Python"
 SUMMARY="Python package format module"
@@ -11,14 +12,27 @@ compatible install in a way that is very close to the on-disk format."
 
 ARCH=noarch
 
-python2_wheel_CONTENTS="usr/bin/wheel-${PYTHON2_VERSION} ${python2_wheel_CONTENTS}"
-python3_wheel_CONTENTS="usr/bin/wheel-${PYTHON3_VERSION} ${python3_wheel_CONTENTS}"
+PKG_NAMES+=" ${NAME}-wheel"
+python_wheel_wheel_CONTENTS="
+	usr/share/python-wheels/wheel-*.whl
+	usr/share/doc/${NAME}-wheel/
+"
+python27_wheel_CONTENTS+=" usr/bin/wheel-2.7"
+python34_wheel_CONTENTS+=" usr/bin/wheel-3.4"
+python35_wheel_CONTENTS+=" usr/bin/wheel-3.5"
+python36_wheel_CONTENTS+=" usr/bin/wheel-3.6"
+python37_wheel_CONTENTS+=" usr/bin/wheel-3.7"
 
 src_install() {
 	cd ${B}
-	python_wheel_install
+	for v in ${PYTHON_WHEEL_VERSIONS//:/ }
+	do
+		PYTHON_WHEEL_VERSIONS=$v
+		python_wheel_install
 
-	cp ${D}/usr/bin/wheel{,-${PYTHON2_VERSION}}
-	mv ${D}/usr/bin/wheel{,-${PYTHON3_VERSION}}
-	python2_fix_shebang /usr/bin/wheel-${PYTHON2_VERSION}
+		mv ${D}/usr/bin/wheel{,-$v}
+	done
+
+	insinto /usr/share/python-wheels
+	doins dist/wheel-${VERSION}-py2.py3-none-any.whl
 }
