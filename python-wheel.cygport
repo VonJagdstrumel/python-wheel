@@ -33,6 +33,5 @@ src_install() {
 		mv ${D}/usr/bin/wheel{,-$v}
 	done
 
-	insinto /usr/share/python-wheels
-	doins dist/wheel-${VERSION}-py2.py3-none-any.whl
+	dowheel dist/wheel-${VERSION}-py2.py3-none-any.whl
 }
