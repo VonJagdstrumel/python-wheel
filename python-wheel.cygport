@@ -1,8 +1,7 @@
-PYTHON_WHEEL_VERSIONS="all"
 inherit python-wheel
 
 NAME="python-wheel"
-VERSION=0.33.6
+VERSION=0.34.2
 RELEASE=1
 CATEGORY="Python"
 SUMMARY="Python package format module"
@@ -17,12 +16,7 @@ python_wheel_wheel_CONTENTS="
 	usr/share/python-wheels/wheel-*.whl
 	usr/share/doc/${NAME}-wheel/
 "
-python27_wheel_CONTENTS+=" usr/bin/wheel-2.7"
-python34_wheel_CONTENTS+=" usr/bin/wheel-3.4"
-python35_wheel_CONTENTS+=" usr/bin/wheel-3.5"
-python36_wheel_CONTENTS+=" usr/bin/wheel-3.6"
-python37_wheel_CONTENTS+=" usr/bin/wheel-3.7"
-python38_wheel_CONTENTS+=" usr/bin/wheel-3.8"
+python39_wheel_CONTENTS+=" usr/bin/wheel-3.9"
 
 src_install() {
 	cd ${B}
