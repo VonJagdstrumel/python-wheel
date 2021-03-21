@@ -1,7 +1,7 @@
 inherit python-wheel
 
 NAME="python-wheel"
-VERSION=0.34.2
+VERSION=0.36.2
 RELEASE=1
 CATEGORY="Python"
 SUMMARY="Python package format module"
