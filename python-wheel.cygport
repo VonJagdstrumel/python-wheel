@@ -1,7 +1,7 @@
 inherit python-wheel
 
 NAME="python-wheel"
-VERSION=0.37.1
+VERSION=0.43.0
 RELEASE=1
 CATEGORY="Python"
 SUMMARY="Python package format module"
@@ -17,6 +17,7 @@ python_wheel_wheel_CONTENTS="
 	usr/share/doc/${NAME}-wheel/
 "
 python311_wheel_CONTENTS+=" usr/bin/wheel-3.11"
+python313_wheel_CONTENTS+=" usr/bin/wheel-3.13"
 
 src_install() {
 	cd ${B}
@@ -28,5 +29,5 @@ src_install() {
 		mv ${D}/usr/bin/wheel{,-$v}
 	done
 
-	dowheel dist/wheel-${VERSION}-py2.py3-none-any.whl
+	dowheel dist/wheel-${VERSION}-py3-none-any.whl
 }
